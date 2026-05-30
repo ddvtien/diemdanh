@@ -1,223 +1,194 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Điểm danh GPS chống điểm danh hộ</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root{--bg:#f6f7fb;--card:#fff;--line:#dfe5f1;--text:#1d2940;--muted:#6b7890;--pri:#2d5be3;--pri2:#1d45c0;--ok:#169c51;--okbg:#e8f7ee;--warn:#d97706;--warnbg:#fff3df;--err:#dc2626;--errbg:#feeceb;--soft:#eef3ff;--radius:16px}
-    *{box-sizing:border-box} body{margin:0;font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--text)}
-    .wrap{max-width:840px;margin:0 auto;padding:20px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}
-    .brand{font-weight:700;font-size:22px}.mode{font-size:13px;color:var(--muted);padding:8px 12px;background:#fff;border:1px solid var(--line);border-radius:999px}
-    .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:0 6px 24px rgba(20,40,90,.05);margin-bottom:16px}
-    .title{font-size:24px;font-weight:700;line-height:1.25;margin:0 0 10px}.sub{color:var(--muted);font-size:14px;line-height:1.6}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
-    label{font-weight:600;font-size:14px} input{height:46px;border:1px solid var(--line);border-radius:12px;padding:0 14px;font-size:15px;background:#fff}
-    input:focus{outline:none;border-color:var(--pri);box-shadow:0 0 0 4px rgba(45,91,227,.12)}
-    button{height:46px;border:none;border-radius:12px;padding:0 16px;font-weight:600;font-size:14px;cursor:pointer}.primary{background:var(--pri);color:#fff}.primary:hover{background:var(--pri2)} .ghost{background:#fff;color:var(--text);border:1px solid var(--line)}
-    .btns{display:flex;gap:10px;flex-wrap:wrap}.ok,.warn,.err{padding:10px 12px;border-radius:12px;font-size:14px}.ok{background:var(--okbg);color:var(--ok)}.warn{background:var(--warnbg);color:var(--warn)}.err{background:var(--errbg);color:var(--err)}
-    .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}.chip{padding:8px 10px;background:var(--soft);border-radius:999px;font-size:13px;color:var(--muted)}.hidden{display:none!important}.big{font-size:30px;font-weight:700;color:var(--pri);margin:8px 0}
-    .list{display:flex;flex-direction:column;gap:10px}.row{display:flex;justify-content:space-between;gap:10px;padding:12px;border:1px solid var(--line);border-radius:12px;background:#fafbfd}.row small{color:var(--muted)}
-    video,canvas{width:100%;max-width:360px;border-radius:14px;border:1px solid var(--line);background:#000}.camera-wrap{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start}.camera-side{display:flex;flex-direction:column;gap:10px}
-    .badge{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:999px;background:var(--soft);font-size:13px;color:var(--muted)}
-    @media (max-width:700px){.grid{grid-template-columns:1fr}.wrap{padding:14px}.title{font-size:22px}.big{font-size:26px}}
-  </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Điểm danh GPS ổn định</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--line:#dfe5f1;--text:#1d2940;--muted:#6b7890;--pri:#2d5be3;--pri2:#1d45c0;--ok:#169c51;--okbg:#e8f7ee;--warn:#d97706;--warnbg:#fff3df;--err:#dc2626;--errbg:#feeceb;--soft:#eef3ff;--radius:16px}
+*{box-sizing:border-box}body{margin:0;font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--text)}
+.wrap{max-width:920px;margin:0 auto;padding:20px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}.brand{font-weight:700;font-size:22px}.mode{font-size:13px;color:var(--muted);padding:8px 12px;background:#fff;border:1px solid var(--line);border-radius:999px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:0 6px 24px rgba(20,40,90,.05);margin-bottom:16px}.title{font-size:24px;font-weight:700;line-height:1.25;margin:0 0 10px}.sub{color:var(--muted);font-size:14px;line-height:1.6}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}label{font-weight:600;font-size:14px}input{height:46px;border:1px solid var(--line);border-radius:12px;padding:0 14px;font-size:15px;background:#fff}input:focus{outline:none;border-color:var(--pri);box-shadow:0 0 0 4px rgba(45,91,227,.12)}
+button{height:46px;border:none;border-radius:12px;padding:0 16px;font-weight:600;font-size:14px;cursor:pointer}.primary{background:var(--pri);color:#fff}.primary:hover{background:var(--pri2)}.ghost{background:#fff;color:var(--text);border:1px solid var(--line)}.btns{display:flex;gap:10px;flex-wrap:wrap}
+.ok,.warn,.err{padding:10px 12px;border-radius:12px;font-size:14px}.ok{background:var(--okbg);color:var(--ok)}.warn{background:var(--warnbg);color:var(--warn)}.err{background:var(--errbg);color:var(--err)}.meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}.chip{padding:8px 10px;background:var(--soft);border-radius:999px;font-size:13px;color:var(--muted)}.hidden{display:none!important}.big{font-size:30px;font-weight:700;color:var(--pri);margin:8px 0}
+.list{display:flex;flex-direction:column;gap:10px}.row{display:flex;justify-content:space-between;gap:10px;padding:12px;border:1px solid var(--line);border-radius:12px;background:#fafbfd}.row small{color:var(--muted)}
+video,canvas{width:100%;max-width:360px;border-radius:14px;border:1px solid var(--line);background:#000}.camera-wrap{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start}.camera-side{display:flex;flex-direction:column;gap:10px}.gpsbox{padding:12px;border:1px dashed var(--line);border-radius:14px;background:#fbfcff}
+@media (max-width:700px){.grid{grid-template-columns:1fr}.wrap{padding:14px}.title{font-size:22px}.big{font-size:26px}}
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="top">
-      <div class="brand">Điểm danh GPS</div>
-      <div class="mode" id="modeBadge">Đang tải...</div>
-    </div>
+<div class="wrap">
+<div class="top"><div class="brand">Điểm danh GPS</div><div class="mode" id="modeBadge">Đang tải...</div></div>
+<div class="card"><h1 class="title">Bản ổn định: 2 link, GPS rõ ràng, lưu trạng thái trên Apps Script</h1><div class="sub">Bản này sửa lỗi cũ: giảng viên và sinh viên dùng khác máy vẫn chạy được vì trạng thái buổi điểm danh được lưu trên Apps Script/Google Sheet, không phụ thuộc local browser. GPS được hiển thị rõ ở giao diện sinh viên và giảng viên. [code_file:91][code_file:92]</div><div class="meta"><div class="chip">Link giảng viên: <span id="teacherLink"></span></div><div class="chip">Link sinh viên: <span id="studentLink"></span></div></div></div>
 
-    <div class="card">
-      <h1 class="title">Bản chống điểm danh hộ</h1>
-      <div class="sub">Bản này chặn trùng MSSV theo ngày và yêu cầu sinh viên chụp selfie trước khi gửi điểm danh để giảm việc nhờ người khác điểm danh hộ. Trình duyệt dùng camera qua <code>getUserMedia()</code> khi người dùng cấp quyền. [web:79][web:81][code_file:88][code_file:89]</div>
-      <div class="meta">
-        <div class="chip">Link giảng viên: <span id="teacherLink"></span></div>
-        <div class="chip">Link sinh viên: <span id="studentLink"></span></div>
-      </div>
+<div id="teacherView" class="hidden">
+  <div class="card"><h2 class="title">Trang giảng viên</h2><div class="sub">Giảng viên mở buổi điểm danh, lấy GPS lớp học, tạo mã phiên và chia sẻ link sinh viên. Dữ liệu phiên được lưu trong sheet cấu hình để sinh viên máy khác vẫn truy cập được. [code_file:91][code_file:92]</div></div>
+  <div class="card">
+    <div class="field"><label>URL Apps Script Web App</label><input id="scriptUrl" placeholder="https://script.google.com/macros/s/.../exec"></div>
+    <div class="field"><label>Tên lớp học phần</label><input id="className" value="Lập trình web - CNTT01"></div>
+    <div class="grid">
+      <div class="field"><label>Thời gian điểm danh (phút)</label><input id="duration" type="number" min="1" value="15"></div>
+      <div class="field"><label>Bán kính GPS (mét)</label><input id="radius" type="number" min="10" value="80"></div>
     </div>
-
-    <div id="teacherView" class="hidden">
-      <div class="card">
-        <h2 class="title">Trang giảng viên</h2>
-        <div class="sub">Giảng viên mở buổi điểm danh, lấy GPS lớp học và gửi link sinh viên. Mã phiên điểm danh được sinh tự động để ràng buộc điểm danh theo từng buổi. [code_file:88]</div>
-      </div>
-      <div class="card">
-        <div class="field"><label>Tên lớp học phần</label><input id="className" value="Lập trình web - CNTT01"></div>
-        <div class="field"><label>URL Apps Script Web App</label><input id="scriptUrl" placeholder="https://script.google.com/macros/s/.../exec"></div>
-        <div class="grid">
-          <div class="field"><label>Thời gian điểm danh (phút)</label><input id="duration" type="number" min="1" value="15"></div>
-          <div class="field"><label>Bán kính GPS (mét)</label><input id="radius" type="number" min="10" value="80"></div>
-        </div>
-        <div class="btns">
-          <button class="ghost" onclick="getTeacherGPS()">Lấy GPS lớp học</button>
-          <button class="primary" onclick="openAttendance()">Mở điểm danh</button>
-          <button class="ghost" onclick="refreshAttendance()">Làm mới danh sách</button>
-        </div>
-        <div id="teacherGpsBox" class="warn" style="margin-top:12px">Chưa lấy GPS lớp học.</div>
-      </div>
-      <div class="card">
-        <h3 style="margin:0 0 10px">Trạng thái buổi điểm danh</h3>
-        <div id="sessionState" class="warn">Chưa mở buổi điểm danh.</div>
-        <div class="big" id="countdown">--:--</div>
-        <div class="field"><label>Link sinh viên</label><input id="studentShareLink" readonly></div>
-        <div class="field"><label>Mã phiên điểm danh</label><input id="sessionCode" readonly></div>
-        <div class="btns"><button class="ghost" onclick="copyStudentLink()">Copy link sinh viên</button></div>
-      </div>
-      <div class="card">
-        <h3 style="margin:0 0 10px">Danh sách đã điểm danh</h3>
-        <div id="attendanceList" class="list"><div class="sub">Chưa có dữ liệu.</div></div>
-      </div>
-    </div>
-
-    <div id="studentView" class="hidden">
-      <div class="card">
-        <h2 class="title">Trang sinh viên</h2>
-        <div class="sub">Sinh viên phải dùng đúng link do giảng viên gửi, nhập đúng MSSV và họ tên, bật GPS, cấp quyền camera để chụp selfie rồi mới được điểm danh. Camera web có thể được mở bằng <code>navigator.mediaDevices.getUserMedia()</code>. [web:79][web:81][code_file:88]</div>
-      </div>
-      <div class="card">
-        <div class="field"><label>MSSV</label><input id="mssv" placeholder="VD: 22110001"></div>
-        <div class="field"><label>Họ và tên</label><input id="fullName" placeholder="VD: Nguyễn Văn A"></div>
-        <div class="camera-wrap">
-          <video id="video" autoplay playsinline muted class="hidden"></video>
-          <canvas id="canvas" class="hidden"></canvas>
-          <div class="camera-side">
-            <div class="badge" id="cameraBadge">Chưa bật camera</div>
-            <button class="ghost" onclick="startCamera()">Bật camera selfie</button>
-            <button class="ghost" onclick="capturePhoto()">Chụp ảnh xác minh</button>
-          </div>
-        </div>
-        <div class="btns" style="margin-top:14px"><button class="primary" onclick="submitAttendance()">Xác nhận điểm danh</button></div>
-        <div id="studentStatus" class="warn" style="margin-top:12px">Điểm danh yêu cầu GPS + ảnh selfie. Một MSSV chỉ được ghi nhận 1 lần trong cùng ngày và cùng phiên. [code_file:89]</div>
-      </div>
-    </div>
+    <div class="gpsbox"><div id="teacherGpsStatus" class="warn">Chưa lấy GPS lớp học.</div></div>
+    <div class="btns" style="margin-top:12px"><button class="ghost" onclick="getTeacherGPS()">Lấy GPS lớp học</button><button class="primary" onclick="openSession()">Mở điểm danh</button><button class="ghost" onclick="loadSession()">Tải trạng thái phiên</button></div>
   </div>
+  <div class="card">
+    <h3 style="margin:0 0 10px">Phiên hiện tại</h3>
+    <div id="teacherSessionStatus" class="warn">Chưa có phiên đang mở.</div>
+    <div class="big" id="countdown">--:--</div>
+    <div class="field"><label>Link sinh viên</label><input id="studentShareLink" readonly></div>
+    <div class="field"><label>Mã phiên</label><input id="sessionCode" readonly></div>
+    <div class="btns"><button class="ghost" onclick="copyStudentLink()">Copy link sinh viên</button><button class="ghost" onclick="refreshAttendance()">Làm mới danh sách</button></div>
+  </div>
+  <div class="card"><h3 style="margin:0 0 10px">Danh sách đã điểm danh</h3><div id="attendanceList" class="list"><div class="sub">Chưa có dữ liệu.</div></div></div>
+</div>
+
+<div id="studentView" class="hidden">
+  <div class="card"><h2 class="title">Trang sinh viên</h2><div class="sub">Sinh viên phải dùng đúng link có mã phiên, nhập MSSV và họ tên, bấm lấy GPS rõ ràng, bật camera và chụp ảnh xác minh rồi mới được điểm danh. [code_file:91][code_file:92]</div></div>
+  <div class="card">
+    <div class="field"><label>URL Apps Script Web App</label><input id="studentScriptUrl" placeholder="Dán cùng URL Apps Script hoặc dùng link đã có sẵn"></div>
+    <div class="field"><label>MSSV</label><input id="mssv" placeholder="VD: 22110001 hoặc 33434"></div>
+    <div class="field"><label>Họ và tên</label><input id="fullName" placeholder="VD: Nguyễn Văn A"></div>
+    <div class="gpsbox">
+      <div style="font-weight:600;margin-bottom:8px">GPS sinh viên</div>
+      <div id="gpsStatus" class="warn">Chưa lấy GPS.</div>
+      <div id="gpsCoords" class="sub" style="margin-top:8px">Lat: -- | Lng: -- | Khoảng cách: --</div>
+      <div class="btns" style="margin-top:10px"><button class="ghost" onclick="getStudentGPS()">Lấy GPS của tôi</button><button class="ghost" onclick="checkSession()">Kiểm tra phiên</button></div>
+    </div>
+    <div class="camera-wrap" style="margin-top:14px">
+      <video id="video" autoplay playsinline muted class="hidden"></video>
+      <canvas id="canvas" class="hidden"></canvas>
+      <div class="camera-side"><div id="cameraStatus" class="warn">Chưa bật camera</div><button class="ghost" onclick="startCamera()">Bật camera selfie</button><button class="ghost" onclick="capturePhoto()">Chụp ảnh xác minh</button></div>
+    </div>
+    <div class="btns" style="margin-top:14px"><button class="primary" onclick="submitAttendance()">Xác nhận điểm danh</button></div>
+    <div id="studentStatus" class="warn" style="margin-top:12px">Hãy kiểm tra phiên, lấy GPS, chụp ảnh rồi mới bấm xác nhận. [code_file:91]</div>
+  </div>
+</div>
+</div>
 <script>
 const qs = new URLSearchParams(location.search);
 const mode = qs.get('mode') || 'teacher';
+const sessionParam = qs.get('session') || '';
 const rootUrl = location.origin + location.pathname;
-const teacherLink = rootUrl + '?mode=teacher';
-document.getElementById('teacherLink').textContent = teacherLink;
+document.getElementById('teacherLink').textContent = rootUrl + '?mode=teacher';
+document.getElementById('studentLink').textContent = rootUrl + '?mode=student&session=' + sessionParam;
 document.getElementById('modeBadge').textContent = mode === 'teacher' ? 'Chế độ giảng viên' : 'Chế độ sinh viên';
 document.getElementById(mode === 'teacher' ? 'teacherView' : 'studentView').classList.remove('hidden');
-let stream = null, photoData = '';
-
-function makeCode(){ return 'SES-' + Math.random().toString(36).slice(2,8).toUpperCase(); }
-function cfg(){ return JSON.parse(localStorage.getItem('attendance_config') || '{}'); }
-function saveCfg(o){ localStorage.setItem('attendance_config', JSON.stringify(o)); }
-
-function updateStudentLink(){
-  const c = cfg();
-  const link = rootUrl + '?mode=student&session=' + encodeURIComponent(c.sessionCode || '');
-  const el = document.getElementById('studentLink');
-  if(el) el.textContent = link;
-  const share = document.getElementById('studentShareLink');
-  if(share) share.value = link;
-}
-updateStudentLink();
-
-function getTeacherGPS(){
-  const box = document.getElementById('teacherGpsBox');
-  if(!navigator.geolocation){ box.className='err'; box.textContent='Thiết bị không hỗ trợ GPS.'; return; }
-  box.className='warn'; box.textContent='Đang lấy GPS lớp học...';
-  navigator.geolocation.getCurrentPosition(pos => {
-    const c = cfg();
-    c.teacherLat = pos.coords.latitude; c.teacherLng = pos.coords.longitude; saveCfg(c);
-    box.className='ok';
-    box.textContent = `Đã lấy GPS lớp học: ${c.teacherLat.toFixed(6)}, ${c.teacherLng.toFixed(6)} | ±${Math.round(pos.coords.accuracy)}m`;
-  }, err => { box.className='err'; box.textContent='Không lấy được GPS: ' + err.message; }, {enableHighAccuracy:true, timeout:15000, maximumAge:0});
-}
-
-function openAttendance(){
-  const className = document.getElementById('className').value.trim();
-  const duration = parseInt(document.getElementById('duration').value || '15', 10);
-  const radius = parseInt(document.getElementById('radius').value || '80', 10);
-  const scriptUrl = document.getElementById('scriptUrl').value.trim();
-  const c = cfg();
-  if(!className || !scriptUrl){ alert('Nhập tên lớp và URL Apps Script'); return; }
-  if(!c.teacherLat || !c.teacherLng){ alert('Phải lấy GPS lớp học trước'); return; }
-  c.className = className; c.duration = duration; c.radius = radius; c.scriptUrl = scriptUrl;
-  c.sessionCode = makeCode(); c.end = Date.now() + duration*60*1000; c.open = true;
-  saveCfg(c); updateStudentLink();
-  document.getElementById('sessionCode').value = c.sessionCode;
-  document.getElementById('sessionState').className='ok';
-  document.getElementById('sessionState').textContent='Đã mở buổi điểm danh.';
-  startTimer();
-}
-
-function startTimer(){ clearInterval(window._tm); renderTimer(); window._tm = setInterval(renderTimer, 1000); }
-function renderTimer(){ const c = cfg(); const left = Math.max(0, Math.floor(((c.end||0)-Date.now())/1000)); document.getElementById('countdown').textContent = String(Math.floor(left/60)).padStart(2,'0') + ':' + String(left%60).padStart(2,'0'); if(left<=0){ c.open=false; saveCfg(c); clearInterval(window._tm); document.getElementById('sessionState').className='warn'; document.getElementById('sessionState').textContent='Buổi điểm danh đã hết giờ.'; } }
-function copyStudentLink(){ navigator.clipboard.writeText(document.getElementById('studentShareLink').value).then(()=>alert('Đã copy link sinh viên')); }
-
-async function startCamera(){
-  const badge = document.getElementById('cameraBadge');
-  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){ badge.className='err'; badge.textContent='Trình duyệt không hỗ trợ camera'; return; }
-  try{
-    stream = await navigator.mediaDevices.getUserMedia({video:{facingMode:'user'}, audio:false});
-    const video = document.getElementById('video');
-    video.srcObject = stream; video.classList.remove('hidden');
-    badge.className='ok'; badge.textContent='Camera đã bật';
-  }catch(e){ badge.className='err'; badge.textContent='Không bật được camera: ' + e.message; }
-}
-
-function capturePhoto(){
-  const video = document.getElementById('video'); const canvas = document.getElementById('canvas'); const badge = document.getElementById('cameraBadge');
-  if(!video.srcObject){ badge.className='err'; badge.textContent='Phải bật camera trước'; return; }
-  canvas.width = video.videoWidth || 360; canvas.height = video.videoHeight || 480;
-  const ctx = canvas.getContext('2d'); ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-  canvas.classList.remove('hidden');
-  photoData = canvas.toDataURL('image/jpeg', 0.8);
-  badge.className='ok'; badge.textContent='Đã chụp ảnh xác minh';
-}
+let teacherGPS = {lat:null,lng:null}; let studentGPS = {lat:null,lng:null,distance:null}; let photoData=''; let stream=null; let sessionData=null;
 
 function haversine(lat1, lon1, lat2, lon2){ const R=6371000, dLat=(lat2-lat1)*Math.PI/180, dLon=(lon2-lon1)*Math.PI/180; const a=Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLon/2)**2; return 2*R*Math.asin(Math.sqrt(a)); }
+function makeCode(){ return 'SES-' + Math.random().toString(36).slice(2,8).toUpperCase(); }
+function scriptUrlValue(){ return mode==='teacher' ? document.getElementById('scriptUrl').value.trim() : document.getElementById('studentScriptUrl').value.trim(); }
+
+function getTeacherGPS(){
+  const el = document.getElementById('teacherGpsStatus');
+  if(!navigator.geolocation){ el.className='err'; el.textContent='Thiết bị không hỗ trợ GPS.'; return; }
+  el.className='warn'; el.textContent='Đang lấy GPS lớp học...';
+  navigator.geolocation.getCurrentPosition(pos=>{
+    teacherGPS.lat = pos.coords.latitude; teacherGPS.lng = pos.coords.longitude;
+    el.className='ok'; el.textContent=`Đã lấy GPS lớp học: ${teacherGPS.lat.toFixed(6)}, ${teacherGPS.lng.toFixed(6)} | ±${Math.round(pos.coords.accuracy)}m`;
+  }, err=>{ el.className='err'; el.textContent='Không lấy được GPS: ' + err.message; }, {enableHighAccuracy:true, timeout:15000, maximumAge:0});
+}
+
+function openSession(){
+  const scriptUrl = scriptUrlValue(); const className = document.getElementById('className').value.trim(); const duration = parseInt(document.getElementById('duration').value||'15',10); const radius = parseInt(document.getElementById('radius').value||'80',10);
+  if(!scriptUrl || !className){ alert('Nhập URL Apps Script và tên lớp'); return; }
+  if(!teacherGPS.lat || !teacherGPS.lng){ alert('Phải lấy GPS lớp học trước'); return; }
+  const sessionCode = makeCode(); const endTime = Date.now() + duration*60*1000;
+  const url = scriptUrl + '?' + new URLSearchParams({action:'openSession', sessionCode, className, duration, radius, teacherLat:teacherGPS.lat, teacherLng:teacherGPS.lng, endTime}).toString();
+  fetch(url).then(r=>r.json()).then(data=>{
+    if(data.status==='success'){
+      sessionData = data.session;
+      document.getElementById('teacherSessionStatus').className='ok';
+      document.getElementById('teacherSessionStatus').textContent='Đã mở buổi điểm danh.';
+      const studentLink = rootUrl + '?mode=student&session=' + encodeURIComponent(sessionCode);
+      document.getElementById('studentShareLink').value = studentLink;
+      document.getElementById('sessionCode').value = sessionCode;
+      startTimer(Number(endTime));
+    } else { document.getElementById('teacherSessionStatus').className='err'; document.getElementById('teacherSessionStatus').textContent=data.message || 'Mở phiên thất bại'; }
+  }).catch(()=>{ document.getElementById('teacherSessionStatus').className='err'; document.getElementById('teacherSessionStatus').textContent='Không kết nối được Apps Script'; });
+}
+
+function loadSession(){
+  const scriptUrl = scriptUrlValue(); if(!scriptUrl){ alert('Nhập URL Apps Script'); return; }
+  fetch(scriptUrl + '?action=getActiveSession').then(r=>r.json()).then(data=>{
+    if(data.session && data.session.sessionCode){
+      sessionData = data.session;
+      document.getElementById('teacherSessionStatus').className='ok';
+      document.getElementById('teacherSessionStatus').textContent='Đang có phiên mở: ' + data.session.className;
+      document.getElementById('studentShareLink').value = rootUrl + '?mode=student&session=' + encodeURIComponent(data.session.sessionCode);
+      document.getElementById('sessionCode').value = data.session.sessionCode;
+      startTimer(Number(data.session.endTime));
+    } else {
+      document.getElementById('teacherSessionStatus').className='warn';
+      document.getElementById('teacherSessionStatus').textContent='Không có phiên đang mở.';
+    }
+  }).catch(()=>{ document.getElementById('teacherSessionStatus').className='err'; document.getElementById('teacherSessionStatus').textContent='Không tải được trạng thái phiên'; });
+}
+
+function startTimer(end){ clearInterval(window._timer); renderTimer(end); window._timer = setInterval(()=>renderTimer(end),1000); }
+function renderTimer(end){ const left=Math.max(0,Math.floor((end-Date.now())/1000)); document.getElementById('countdown').textContent=String(Math.floor(left/60)).padStart(2,'0')+':'+String(left%60).padStart(2,'0'); if(left<=0){ clearInterval(window._timer); document.getElementById('teacherSessionStatus').className='warn'; document.getElementById('teacherSessionStatus').textContent='Buổi điểm danh đã hết giờ.'; } }
+function copyStudentLink(){ navigator.clipboard.writeText(document.getElementById('studentShareLink').value).then(()=>alert('Đã copy link sinh viên')); }
+
+function checkSession(){
+  const scriptUrl = scriptUrlValue(); const box=document.getElementById('studentStatus'); if(!scriptUrl){ box.className='err'; box.textContent='Phải nhập URL Apps Script.'; return; }
+  fetch(scriptUrl + '?action=getSessionByCode&sessionCode=' + encodeURIComponent(sessionParam)).then(r=>r.json()).then(data=>{
+    if(data.session && data.session.sessionCode){ sessionData = data.session; box.className='ok'; box.textContent='Phiên hợp lệ: ' + data.session.className + ' | bán kính ' + data.session.radius + 'm'; }
+    else { box.className='err'; box.textContent='Không tìm thấy phiên hoặc phiên đã hết hạn.'; }
+  }).catch(()=>{ box.className='err'; box.textContent='Không kiểm tra được phiên.'; });
+}
+
+function getStudentGPS(){
+  const status=document.getElementById('gpsStatus'); const coords=document.getElementById('gpsCoords');
+  if(!navigator.geolocation){ status.className='err'; status.textContent='Thiết bị không hỗ trợ GPS.'; return; }
+  status.className='warn'; status.textContent='Đang lấy GPS sinh viên...';
+  navigator.geolocation.getCurrentPosition(pos=>{
+    studentGPS.lat = pos.coords.latitude; studentGPS.lng = pos.coords.longitude;
+    let distText='--';
+    if(sessionData && sessionData.teacherLat && sessionData.teacherLng){ studentGPS.distance = haversine(Number(sessionData.teacherLat), Number(sessionData.teacherLng), studentGPS.lat, studentGPS.lng); distText = Math.round(studentGPS.distance) + 'm'; status.className = studentGPS.distance <= Number(sessionData.radius) ? 'ok' : 'err'; status.textContent = studentGPS.distance <= Number(sessionData.radius) ? 'GPS hợp lệ, đang trong bán kính cho phép.' : 'GPS ngoài khu vực cho phép.'; }
+    else { status.className='ok'; status.textContent='Đã lấy GPS. Hãy bấm kiểm tra phiên để so khoảng cách.'; }
+    coords.textContent = `Lat: ${studentGPS.lat.toFixed(6)} | Lng: ${studentGPS.lng.toFixed(6)} | Khoảng cách: ${distText}`;
+  }, err=>{ status.className='err'; status.textContent='Không lấy được GPS: ' + err.message; }, {enableHighAccuracy:true, timeout:15000, maximumAge:0});
+}
+
+async function startCamera(){
+  const st = document.getElementById('cameraStatus');
+  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){ st.className='err'; st.textContent='Trình duyệt không hỗ trợ camera'; return; }
+  try{ stream = await navigator.mediaDevices.getUserMedia({video:{facingMode:'user'}, audio:false}); const video=document.getElementById('video'); video.srcObject=stream; video.classList.remove('hidden'); st.className='ok'; st.textContent='Camera đã bật'; }catch(e){ st.className='err'; st.textContent='Không bật được camera: ' + e.message; }
+}
+function capturePhoto(){ const video=document.getElementById('video'), canvas=document.getElementById('canvas'), st=document.getElementById('cameraStatus'); if(!video.srcObject){ st.className='err'; st.textContent='Phải bật camera trước'; return; } canvas.width=video.videoWidth||360; canvas.height=video.videoHeight||480; canvas.getContext('2d').drawImage(video,0,0,canvas.width,canvas.height); canvas.classList.remove('hidden'); photoData=canvas.toDataURL('image/jpeg',0.8); st.className='ok'; st.textContent='Đã chụp ảnh xác minh'; }
 
 function submitAttendance(){
-  const c = cfg(); const qSession = qs.get('session') || '';
-  const mssv = document.getElementById('mssv').value.trim(); const name = document.getElementById('fullName').value.trim(); const box = document.getElementById('studentStatus');
-  if(!c.open || Date.now() > (c.end||0)){ box.className='err'; box.textContent='Buổi điểm danh chưa mở hoặc đã hết giờ.'; return; }
-  if(!c.scriptUrl){ box.className='err'; box.textContent='Chưa có cấu hình Apps Script.'; return; }
-  if(!mssv || !name){ box.className='err'; box.textContent='Nhập đầy đủ MSSV và họ tên.'; return; }
-  if(!/^[A-Za-z0-9]{6,15}$/.test(mssv)){ box.className='err'; box.textContent='MSSV không hợp lệ.'; return; }
-  if(qSession !== c.sessionCode){ box.className='err'; box.textContent='Sai link phiên điểm danh. Hãy dùng đúng link giảng viên gửi.'; return; }
-  if(!photoData){ box.className='err'; box.textContent='Phải chụp ảnh selfie trước khi điểm danh.'; return; }
-  if(!navigator.geolocation){ box.className='err'; box.textContent='Thiết bị không hỗ trợ GPS.'; return; }
-  box.className='warn'; box.textContent='Đang kiểm tra GPS và gửi dữ liệu...';
-  navigator.geolocation.getCurrentPosition(pos=>{
-    const dist = haversine(c.teacherLat, c.teacherLng, pos.coords.latitude, pos.coords.longitude);
-    if(dist > Number(c.radius||80)){ box.className='err'; box.textContent=`Bạn cách lớp ${Math.round(dist)}m, vượt bán kính ${c.radius}m.`; return; }
-    const url = c.scriptUrl + '?' + new URLSearchParams({action:'attend', sessionCode:c.sessionCode, mssv, name, className:c.className, lat:pos.coords.latitude, lng:pos.coords.longitude, distance:Math.round(dist), photo:photoData}).toString();
-    fetch(url).then(r=>r.json()).then(data=>{
-      if(data.status === 'success' || data.ok){ box.className='ok'; box.textContent='Điểm danh thành công. Đã lưu vào Google Sheet.'; }
-      else if(data.status === 'duplicate'){ box.className='warn'; box.textContent='MSSV này đã điểm danh rồi.'; }
-      else{ box.className='err'; box.textContent='Từ chối điểm danh: ' + (data.message || 'Lỗi'); }
-    }).catch(()=>{ box.className='err'; box.textContent='Không gửi được dữ liệu đến Apps Script.'; });
-  }, err=>{ box.className='err'; box.textContent='Không lấy được GPS: ' + err.message; }, {enableHighAccuracy:true, timeout:15000, maximumAge:0});
+  const scriptUrl=scriptUrlValue(), mssv=document.getElementById('mssv').value.trim(), fullName=document.getElementById('fullName').value.trim(), box=document.getElementById('studentStatus');
+  if(!scriptUrl){ box.className='err'; box.textContent='Phải nhập URL Apps Script.'; return; }
+  if(!sessionParam){ box.className='err'; box.textContent='Link sinh viên không có mã phiên.'; return; }
+  if(!sessionData){ box.className='err'; box.textContent='Phải bấm Kiểm tra phiên trước.'; return; }
+  if(Date.now() > Number(sessionData.endTime)){ box.className='err'; box.textContent='Phiên đã hết giờ.'; return; }
+  if(!mssv || !fullName){ box.className='err'; box.textContent='Nhập đầy đủ MSSV và họ tên.'; return; }
+  if(!/^[A-Za-z0-9]{5,15}$/.test(mssv)){ box.className='err'; box.textContent='MSSV chỉ cho 5-15 ký tự chữ/số.'; return; }
+  if(!studentGPS.lat || !studentGPS.lng){ box.className='err'; box.textContent='Phải bấm Lấy GPS của tôi trước.'; return; }
+  if(studentGPS.distance == null){ studentGPS.distance = haversine(Number(sessionData.teacherLat), Number(sessionData.teacherLng), studentGPS.lat, studentGPS.lng); }
+  if(studentGPS.distance > Number(sessionData.radius)){ box.className='err'; box.textContent='GPS ngoài khu vực cho phép.'; return; }
+  if(!photoData){ box.className='err'; box.textContent='Phải chụp ảnh xác minh trước.'; return; }
+  box.className='warn'; box.textContent='Đang gửi điểm danh...';
+  const url = scriptUrl + '?' + new URLSearchParams({action:'attend', sessionCode:sessionParam, mssv, name:fullName, className:sessionData.className, lat:studentGPS.lat, lng:studentGPS.lng, distance:Math.round(studentGPS.distance), photo:photoData}).toString();
+  fetch(url).then(r=>r.json()).then(data=>{
+    if(data.status==='success' || data.ok){ box.className='ok'; box.textContent='Điểm danh thành công. Dữ liệu đã lưu vào Google Sheet.'; }
+    else if(data.status==='duplicate'){ box.className='warn'; box.textContent='MSSV này đã điểm danh rồi.'; }
+    else{ box.className='err'; box.textContent='Từ chối điểm danh: ' + (data.message || 'Lỗi'); }
+  }).catch(()=>{ box.className='err'; box.textContent='Không gửi được dữ liệu đến Apps Script.'; });
 }
 
 function refreshAttendance(){
-  const c = cfg(); if(!c.scriptUrl){ alert('Chưa có URL Apps Script'); return; }
-  fetch(c.scriptUrl + '?action=list').then(r=>r.json()).then(data=>{
-    const box = document.getElementById('attendanceList');
+  const scriptUrl = scriptUrlValue(); if(!scriptUrl){ alert('Nhập URL Apps Script'); return; }
+  fetch(scriptUrl + '?action=list').then(r=>r.json()).then(data=>{
+    const box=document.getElementById('attendanceList');
     if(!data.records || !data.records.length){ box.innerHTML='<div class="sub">Chưa có dữ liệu.</div>'; return; }
     box.innerHTML = data.records.map(r=>`<div class="row"><div><div><b>${r.name||''}</b></div><small>${r.mssv||''} · ${r.sessionCode||''}</small></div><div><small>${r.time||''}</small></div></div>`).join('');
   }).catch(()=>{ document.getElementById('attendanceList').innerHTML='<div class="err">Không tải được danh sách.</div>'; });
-}
-
-if(mode==='teacher'){
-  const c = cfg();
-  if(c.className) document.getElementById('className').value = c.className;
-  if(c.scriptUrl) document.getElementById('scriptUrl').value = c.scriptUrl;
-  if(c.duration) document.getElementById('duration').value = c.duration;
-  if(c.radius) document.getElementById('radius').value = c.radius;
-  if(c.sessionCode) document.getElementById('sessionCode').value = c.sessionCode;
-  updateStudentLink();
-  if(c.open && Date.now() < (c.end||0)){ document.getElementById('sessionState').className='ok'; document.getElementById('sessionState').textContent='Buổi điểm danh đang mở.'; startTimer(); }
 }
 </script>
 </body>
